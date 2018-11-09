@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+{% endblock %}
+{% block content %}
+    <div class="container w-25">
+        <h1>Please login</h1>
+        <br>
+        <form class="form-signin" action="" method="post">
+            <input class="form-control" type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
+            <br/>
+            <input class="form-control" type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
+            <br/>
+            <input class="btn btn-default" type="submit" value="Login">
+        </form>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{ error }}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+<{% extends 'base.html' %}
+
+{% block title %}404{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        {#Custome css here#}
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Oh No!</h1>
+    <div class="mb-2"/>
+    <p class="important">
+      404 - Page not found
+    </p>
+{% endblock %}
