@@ -4,13 +4,21 @@
 
 {% block head %}
     {{ super() }}
-    <style type="text/css">
-        {#Custome css here#}
-    </style>
+    <link href="static/style.css" rel="stylesheet">
 {% endblock %}
 {% block content %}
-    <h1>Index</h1>
-    <p class="important">
-      Welcome to my awesome homepage.
-    </p>
+    <div class="mb-20"></div>
+    <div class="center">
+        {% for dict_item in msgs %}
+            <div class="content-box">
+                <div class="text">
+                    {{ dict_item["msg_text"] }}
+                    <hr>
+                    <div class="text ut">
+                        Created by: {{ dict_item["usr_name"] }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
