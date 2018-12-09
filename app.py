@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_bootstrap import Bootstrap
 import os
 import json
-import requests
+import api
 from mock import jsonstr
 import formValidator
 
@@ -15,9 +15,7 @@ Bootstrap(app)
 @app.route('/index', methods=['GET'])
 def index():
     # This is the code to use!
-    djson = requests.get('http://localhost:9000/api/massages')
-    json_dict = json.loads(djson.content.decode())
-    msgs = json_dict.get('msgs')
+    msgs = api.get_all_messages()
     return render_template('index.html', msgs=msgs)
 
 
@@ -29,6 +27,7 @@ def login():
             error = 'Invalid Credentials. Please try again.'
         else:
             session['logged_in'] = True
+            session['current_usr'] = None
             print(session)
             return redirect(url_for('message'))
     return render_template('login.html', error=error)
@@ -50,7 +49,7 @@ def message():
             return render_template('message.html')
         else:
 
-            dict_to_send = {'msg': request.form['message'], 'user_id': 0}
+            dict_to_send = {'msg': request.form['message'], 'user_id': session.get('current_usr')}
             json_to_send = json.dumps(dict_to_send)
             # Calls API from here /message POST
             return redirect(url_for('index'))
