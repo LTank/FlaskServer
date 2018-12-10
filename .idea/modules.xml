@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/FlaskServer.iml" filepath="$PROJECT_DIR$/.idea/FlaskServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../PythonVRESTapi/.idea/PythonVRESTapi.iml" filepath="$PROJECT_DIR$/../PythonVRESTapi/.idea/PythonVRESTapi.iml" />
     </modules>
   </component>
 </project>
