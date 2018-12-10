@@ -18,6 +18,8 @@
             <br/>
             <input class="form-control" type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
             <br/>
+            <input class="form-control" type="rpassword" placeholder="Retype password" name="rpassword" value="{{ request.form.password }}">
+            <br/>
             <input class="btn btn-default" type="submit" value="Submit">
         </form>
         {% if error %}

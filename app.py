@@ -3,8 +3,6 @@ from flask_bootstrap import Bootstrap
 import os
 import json
 import api
-from mock import jsonstr
-import formValidator
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
@@ -29,7 +27,7 @@ def login():
             session['logged_in'] = True
             session['current_usr'] = None
             print(session)
-            return redirect(url_for('message'))
+            return redirect(url_for('index'))
     return render_template('login.html', error=error)
 
 
