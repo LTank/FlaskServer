@@ -21,11 +21,12 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+        usr = api.get_user(request.form['username'], request.form['password'])
+        if usr is None:
             error = 'Invalid Credentials. Please try again.'
         else:
             session['logged_in'] = True
-            session['current_usr'] = None
+            session['current_usr'] = usr
             print(session)
             return redirect(url_for('index'))
     return render_template('login.html', error=error)
@@ -34,6 +35,7 @@ def login():
 @app.route('/logout', methods=['GET'])
 def logout():
     session['logged_in'] = False
+    session['current_usr'] = None
     print(session)
     return redirect(url_for('index'))
 
@@ -46,19 +48,21 @@ def message():
         if request.method == 'GET':
             return render_template('message.html')
         else:
-
             dict_to_send = {'msg': request.form['message'], 'user_id': session.get('current_usr')}
             json_to_send = json.dumps(dict_to_send)
-            # Calls API from here /message POST
+            api.post_message(json_to_send)
             return redirect(url_for('index'))
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'GET':
-        return render_template('register.html')
-    else:
+    if request.method == 'POST' and request.form['password'] == request.form['retype']:
+        dict_to_send = {'usr_name': request.form['username'], 'usr_pswd': request.form['password']}
+        json_to_send = json.dumps(dict_to_send)
+        api.create_user(json_to_send)
         return redirect(url_for('login'))
+    else:
+        return render_template('register.html')
 
 
 @app.errorhandler(404)
