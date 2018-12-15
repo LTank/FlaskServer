@@ -48,7 +48,7 @@ def message():
         if request.method == 'GET':
             return render_template('message.html')
         else:
-            dict_to_send = {'msg': request.form['message'], 'user_id': session.get('current_usr')}
+            dict_to_send = {'msg': request.form['message'], 'usr_id': session.get('current_usr')}
             json_to_send = json.dumps(dict_to_send)
             api.post_message(json_to_send)
             return redirect(url_for('index'))
