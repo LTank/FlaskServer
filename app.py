@@ -45,13 +45,14 @@ def message():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     else:
-        if request.method == 'GET':
-            return render_template('message.html')
-        else:
+        if request.method == 'POST' and request.form['message'] is not "":
             dict_to_send = {'msg': request.form['message'], 'usr_id': session.get('current_usr')}
             json_to_send = json.dumps(dict_to_send)
             api.post_message(json_to_send)
             return redirect(url_for('index'))
+        else:
+            return render_template('message.html')
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -71,4 +72,4 @@ def page_not_found(error):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
